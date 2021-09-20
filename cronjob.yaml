@@ -1,0 +1,18 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: cron-cleanup-action
+spec:
+  schedule: "0 */12 * * *"
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+          - name: file-writer
+            image: rivianmfg/rivian-mfg-file-writer:latest
+            imagePullPolicy: IfNotPresent
+            command:
+            - rm -rf /var/file-writer/data
+            - echo performed purge
+          restartPolicy: OnFailure
