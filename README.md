@@ -27,6 +27,60 @@ This little script also uses aws-credentials.sh  which uses existing aws credent
 
 In a production environment, you could just attach a Role to the manifest which would make it easy to execute. 
 
+IAM Role Policy
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Action": [
+                "s3:GetObject",
+                "s3:PutObject",
+                "s3:PutObjectAcl"
+            ],
+            "Resource": "arn:aws:s3:::AccountABucketName/*"
+
+        }
+    ]
+}
+
+Trust Relationship for the Role
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Principal": {
+        "AWS": [
+          "arn:aws:iam::1234567890:user/karuna"
+        ]
+      },
+      "Action": "sts:AssumeRole"
+    }
+  ]
+}
+
+S3 Bucket Policy
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Principal": {
+                "AWS": "arn:aws:iam::AccountB:user/AccountBUserName"
+            },
+            "Action": [
+                "s3:GetObject",
+                "s3:PutObject",
+                "s3:PutObjectAcl"
+            ],
+            "Resource": [
+                "arn:aws:s3:::AccountABucketName/*"
+            ]
+        }
+    ]
+}
+
 There is also a cronjob.yaml that runs on a schedule - twice a day every 12 hours. 
 *Assuming* that the first time this is run is at the end of the first shift. 
 
