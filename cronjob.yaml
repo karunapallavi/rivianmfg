@@ -1,8 +1,12 @@
+# This job needs to run every 12 hours to clear out data written in by file-writer at the end of each working shift
+
+
 apiVersion: batch/v1
 kind: CronJob
 metadata:
   name: cron-cleanup-action
 spec:
+  # runs every 12 hours 
   schedule: "0 */12 * * *"
   jobTemplate:
     spec:

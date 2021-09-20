@@ -18,7 +18,7 @@ spec:
       containers:
       - name: file-writer
         image: rivianmfg/rivian-mfg-file-writer:latest
-
+      # start s3-uploader to sync the files to the bucket specified
       - name: s3upload
         image: s3-uploader:latest
         imagePullPolicy: Never

@@ -52,7 +52,7 @@ In a production environment, you could just attach a Role to the manifest which 
       "Effect": "Allow",
       "Principal": {
         "AWS": [
-          "arn:aws:iam::1234567890:user/karuna"
+          "arn:aws:iam::1234567890:user/uploadAssumeRole"
         ]
       },
       "Action": "sts:AssumeRole"
@@ -60,7 +60,7 @@ In a production environment, you could just attach a Role to the manifest which 
   ]
 }
 
-### User credentials that are copied in Dockerfile - used only to assumeRole (karuna)
+### User credentials that are copied in Dockerfile - used only to assumeRole 
 
 {
     "Version": "2012-10-17",
@@ -121,11 +121,6 @@ We can improve this by also adding in Auto Scaling features.
 - node health
 - use prometheus to monitor pod and node performance metrics - send these metrics to grafana to visualize the data
 - throughput of the data written by file-writer and the s3-uploader. This will help with scaling. 
-
-# write S3 policy 
-# write down assumerole's policy
-# specify how that works
-
 
 ## Ideal Architecture:
 - You could setup file writer to share a volume that is the S3 bucket. This way you don't have to do a seperate action to write and another one to clear out the local files. You may always access what is needed in S3 and you can store them in several different archival buckets which would store data that would not need much access frequently. This would save some costs as well.

@@ -1,4 +1,5 @@
 #!/bin/bash
+# this script sets the env with the correct credentials to perform the required AWS tasks
 
 command -v aws >/dev/null 2>&1   || { echo >&2 "I require aws but it's not installed.  Aborting."; exit 1; }
 
