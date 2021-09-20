@@ -27,7 +27,7 @@ This little script also uses aws-credentials.sh  which uses existing aws credent
 
 In a production environment, you could just attach a Role to the manifest which would make it easy to execute. 
 
-IAM Role Policy
+### IAM Role Policy
 {
     "Version": "2012-10-17",
     "Statement": [
@@ -38,13 +38,13 @@ IAM Role Policy
                 "s3:PutObject",
                 "s3:PutObjectAcl"
             ],
-            "Resource": "arn:aws:s3:::AccountABucketName/*"
+            "Resource": "arn:aws:s3:::s3bucketName/*"
 
         }
     ]
 }
 
-Trust Relationship for the Role
+### Trust Relationship for the Role
 {
   "Version": "2012-10-17",
   "Statement": [
@@ -60,7 +60,22 @@ Trust Relationship for the Role
   ]
 }
 
-S3 Bucket Policy
+### User credentials that are copied in Dockerfile - used only to assumeRole (karuna)
+
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Action": [
+                "sts:AssumeRole"
+            ],
+            "Resource": "*"
+        }
+    ]
+}
+
+### S3 Bucket Policy
 {
     "Version": "2012-10-17",
     "Statement": [
